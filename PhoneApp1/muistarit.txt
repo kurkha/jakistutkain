@@ -1,0 +1,15 @@
+﻿
+
+
+- Hae ottelutiedot osoitteesta http://adafyvlstorage.blob.core.windows.net/2014/finland/veikkausliiga/matches
+	\ GZIP:iä, pitää purkaa hakea HttpClient.Compressionilla, kts. https://www.nuget.org/packages/HttpClient.Compression/ 
+
+- Ottelutiedot on JSON-muotoisia -> etsi Nugetista joku parseri
+	\ Parsi johonkin listaan joukkue1, joukkue2, tulos, pvm
+	\ Lisää jokainen listankohta dynaamisesti kasvatettavaan UI-taulukkoon, tai sitten ihan vaan tekstinä rivinvaihdoilla
+		+ Tekstinä rivinvaihdoilla voi kyllä olla hankala tot. tuo "klikkaa niin näet tarkemmat tiedot"- toiminnallisuus
+			/ Saisko labeleita jonkun layoutin sisälle ja siihen layouttiin OnClickin?
+			/ Tai ihan vaan yhden labelin per ottelu ja siihen OnClickin?
+			/ Ja OnClickillä sitten vaan muutetaan widgettien sisältöä sillä toisella sivulla
+			/ Kandee kyllä sitten penkoa samasta JSON-objektista se tieto, ja huomaa, että edelleen samalla match id:llä mennään
+

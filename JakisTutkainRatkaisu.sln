@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jakistutkain", "PhoneApp1\Jakistutkain.csproj", "{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7FB1B5EA-AD6E-4629-8B12-C0C979D2E0A0}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|ARM.Build.0 = Debug|ARM
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|ARM.Deploy.0 = Debug|ARM
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|x86.ActiveCfg = Debug|x86
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|x86.Build.0 = Debug|x86
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Debug|x86.Deploy.0 = Debug|x86
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|ARM.ActiveCfg = Release|ARM
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|ARM.Build.0 = Release|ARM
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|ARM.Deploy.0 = Release|ARM
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|x86.ActiveCfg = Release|x86
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|x86.Build.0 = Release|x86
+		{BCDCEF6E-0FBA-43C6-A225-ADAAAE337C5F}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
