@@ -10,11 +10,11 @@ using System.Data;
 
 namespace PhoneApp1
 {
-    class IOandConversion
+    public static class IOandConversion
     {
 
 
-        public Task<string> readCompressedHtmlPage(String pageAdress)
+        public static Task<string> readCompressedHtmlPage(String pageAdress)
         {
             CompressedHttpClientHandler handler = new CompressedHttpClientHandler();
             HttpClient client = new HttpClient(handler);
@@ -25,10 +25,9 @@ namespace PhoneApp1
             return response;
         }
 
-        public  readJsonTextToDataset(String text)
+        public void readJsonTextToDataset(String text)
         {
             
-
 
         }
 

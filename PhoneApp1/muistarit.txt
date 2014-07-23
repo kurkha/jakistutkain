@@ -13,3 +13,11 @@
 			/ Ja OnClickillä sitten vaan muutetaan widgettien sisältöä sillä toisella sivulla
 			/ Kandee kyllä sitten penkoa samasta JSON-objektista se tieto, ja huomaa, että edelleen samalla match id:llä mennään
 
+
+- TODO
+	\ Tarkistus ja virheilmoitus, jos verkkosivua ei voi lukea
+	\ Jos otteluntarjoajasivulla on korruptoitunutta tietoa, pitäisi tehdä jotain 
+	(näyttää vain ei-korruptoinut? Heittää käyttäjälle virheilmoitus eikä näyttää
+	mitään?)
+	\ Kommentteja luokkiin ja medodeihin
+	\
