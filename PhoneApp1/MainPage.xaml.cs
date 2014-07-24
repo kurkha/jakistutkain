@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using Windows.Storage;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -31,15 +33,16 @@ namespace PhoneApp1
         /// <summary>
         /// Find some data about matches and fill the MatchDataList with it.
         /// </summary>
-        public void populateMatchDataList()
+        public void populateMatchDataListFromHttp()
         {
             // Get the actual Json in text from the matchdata page.
             string matchDataAddress = "http://adafyvlstorage.blob.core.windows.net/2014/finland/veikkausliiga/matches";
             Task<string> matchesInfo = IOandConversion.readCompressedHtmlPage(matchDataAddress);
 
-            string fullMatchinfo = matchesInfo.Result;
+            string fullMatchInfo = matchesInfo.Result;
+            
             // Matches are in an array by default.
-            JArray matchArray = new JArray(fullMatchinfo);
+            JArray matchArray = new JArray(fullMatchInfo);
 
             // TODO actually should clear after checking the received JSON is valid.
             MatchDataList.Clear();
@@ -61,6 +64,52 @@ namespace PhoneApp1
             }
 
  
+        }
+
+        /// <summary>
+        /// Same as populateMatchDataListFromHttp(), except that the matchdata is
+        /// read from a file.
+        /// </summary>
+        public async void populateMatchDataListFromFile()
+        {
+
+
+            var fpath = (@"C:\Users\Kari\Documents\Visual Studio 2013\Projects\App1\PhoneApp1");
+
+            StorageFolder matchDataFolder = StorageFolder.GetFolderFromPathAsync(fpath);
+
+            var file = dir.OpenStreamForReadAsync(fpath);
+            var streamReader = new StreamReader(file);
+                
+            string fullMatchInfo = streamReader.ReadToEnd();
+                
+            // Matches are in an array by default.
+            JArray matchArray = new JArray(fullMatchInfo);
+
+            // TODO actually should clear after checking the received JSON is valid.
+            MatchDataList.Clear();
+
+            // One dictionary for each match, includes the desired info.
+            foreach (JObject jobj in matchArray)
+            {
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+
+                dic.Add("matchID", jobj["Id"].ToString());
+                dic.Add("matchDate", jobj["MatchDate"].ToString());
+                dic.Add("homeTeamName", jobj["HomeTeam"]["Name"].ToString());
+                dic.Add("awayTeamName", jobj["AwayTeam"]["Name"].ToString());
+                dic.Add("homeGoals", jobj["HomeGoals"].ToString());
+                dic.Add("awayGoals", jobj["AwayGoals"].ToString());
+                dic.Add("homeTeamLogoAddress", jobj["HomeTeam"]["LogoUrl"].ToString());
+                dic.Add("awayTeamLogoAddress", jobj["AwayTeam"]["LogoUrl"].ToString());
+                MatchDataList.Add(dic);
+            }
+
+        }
+
+        public void buttonPaivita_Click(object sender, RoutedEventArgs e)
+        {
+           populateMatchDataListFromFile();
         }
 
         // Sample code for building a localized ApplicationBar

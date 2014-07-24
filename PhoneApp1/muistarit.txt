@@ -15,9 +15,10 @@
 
 
 - TODO
+	\ Oikeasti olis joku tapa määritellä tuo MatchDataList modeliksi ja sitten viewiksi sen sisällön
+	näyttäjä.
 	\ Tarkistus ja virheilmoitus, jos verkkosivua ei voi lukea
 	\ Jos otteluntarjoajasivulla on korruptoitunutta tietoa, pitäisi tehdä jotain 
 	(näyttää vain ei-korruptoinut? Heittää käyttäjälle virheilmoitus eikä näyttää
 	mitään?)
 	\ Kommentteja luokkiin ja medodeihin
-	\

@@ -13,23 +13,24 @@ namespace PhoneApp1
     public static class IOandConversion
     {
 
-
-        public static Task<string> readCompressedHtmlPage(String pageAdress)
+        /// <summary>
+        /// Read zipped html page and return its content as string.
+        /// </summary>
+        /// <param name="pageAdress">The address of the zipped page.</param>
+        /// <returns></returns>
+        public static async Task<string> readCompressedHtmlPage(string pageAdress)
         {
             CompressedHttpClientHandler handler = new CompressedHttpClientHandler();
             HttpClient client = new HttpClient(handler);
 
-            //TODO Actually should get whole GET response with GetAsync and check that status code is valid.
-            Task<string> response = client.GetStringAsync(pageAdress);
+            HttpResponseMessage response = await client.GetAsync(pageAdress);
+            response.EnsureSuccessStatusCode();
 
-            return response;
-        }
-
-        public void readJsonTextToDataset(String text)
-        {
+            string content = await response.Content.ReadAsStringAsync();
             
-
+            return content;
         }
+
 
     }
 }
