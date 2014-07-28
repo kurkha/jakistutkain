@@ -18,7 +18,7 @@ namespace PhoneApp1
         /// </summary>
         /// <param name="pageAdress">The address of the zipped page.</param>
         /// <returns></returns>
-        public static async Task<string> readCompressedHtmlPage(string pageAdress)
+        public static async Task<string> readCompressedHtmlPageAsync(string pageAdress)
         {
             CompressedHttpClientHandler handler = new CompressedHttpClientHandler();
             HttpClient client = new HttpClient(handler);

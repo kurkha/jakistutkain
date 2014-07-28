@@ -12,6 +12,7 @@ using Microsoft.Phone.Shell;
 using PhoneApp1.Resources;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 
 
 namespace PhoneApp1
@@ -28,21 +29,19 @@ namespace PhoneApp1
         }
 
         // List of match objects, all containing data for a single match.
-        public IList<Dictionary<string,string>> MatchDataList;
+        public List<Dictionary<string, string>> MatchDataList = new List<Dictionary<string,string>>();
 
         /// <summary>
         /// Find some data about matches and fill the MatchDataList with it.
         /// </summary>
-        public void populateMatchDataListFromHttp()
+        public async void populateMatchDataListFromHttp()
         {
             // Get the actual Json in text from the matchdata page.
             string matchDataAddress = "http://adafyvlstorage.blob.core.windows.net/2014/finland/veikkausliiga/matches";
-            Task<string> matchesInfo = IOandConversion.readCompressedHtmlPage(matchDataAddress);
-
-            string fullMatchInfo = matchesInfo.Result;
+            string matchesInfo = await IOandConversion.readCompressedHtmlPageAsync(matchDataAddress);
             
             // Matches are in an array by default.
-            JArray matchArray = new JArray(fullMatchInfo);
+            JArray matchArray = JArray.Parse(matchesInfo);
 
             // TODO actually should clear after checking the received JSON is valid.
             MatchDataList.Clear();
@@ -62,14 +61,13 @@ namespace PhoneApp1
                 dic.Add("awayTeamLogoAddress", jobj["AwayTeam"]["LogoUrl"].ToString());
                 MatchDataList.Add(dic);
             }
-
- 
         }
 
         /// <summary>
         /// Same as populateMatchDataListFromHttp(), except that the matchdata is
         /// read from a file.
         /// </summary>
+        /*
         public async void populateMatchDataListFromFile()
         {
 
@@ -107,9 +105,11 @@ namespace PhoneApp1
 
         }
 
-        public void buttonPaivita_Click(object sender, RoutedEventArgs e)
+         */
+ 
+        public async void buttonPaivita_Click(object sender, RoutedEventArgs e)
         {
-           populateMatchDataListFromFile();
+           populateMatchDataListFromHttp();
         }
 
         // Sample code for building a localized ApplicationBar
