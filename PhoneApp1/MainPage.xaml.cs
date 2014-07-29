@@ -109,7 +109,23 @@ namespace PhoneApp1
  
         public async void buttonPaivita_Click(object sender, RoutedEventArgs e)
         {
+           SearchingBlock.Text = "Haetaan ottelutietoja..."; 
            populateMatchDataListFromHttp();
+           SearchingBlock.Text = "";
+           updateMatchDataListUI();
+        }
+
+        private void updateMatchDataListUI()
+        {
+            foreach (Dictionary<string,string> match in MatchDataList)
+            {
+            TextBlock matchBlock = new TextBlock();
+            matchBlock.Margin = new Thickness(0,5,0,0);
+            matchBlock.Text = match["homeTeamName"] + " -- " + match["awayTeamName"] 
+                + " : " + match["homeGoals"] + " -- " + match["awayGoals"];
+
+            MatchPanel.Children.Add(matchBlock);
+            }
         }
 
         // Sample code for building a localized ApplicationBar
