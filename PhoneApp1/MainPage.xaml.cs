@@ -13,6 +13,7 @@ using PhoneApp1.Resources;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Collections;
+using System.Collections.ObjectModel;
 
 
 namespace PhoneApp1
@@ -23,13 +24,14 @@ namespace PhoneApp1
         public MainPage()
         {
             InitializeComponent();
+            // List of match objects, all containing data for a single match.
+            ObservableCollection <MatchData> MDataList = new ObservableCollection<MatchData>();
+            this.MatchDataList = MDataList;
+            MatchListUI.ItemsSource = MatchDataList;
 
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
         }
 
-        // List of match objects, all containing data for a single match.
-        public List<Dictionary<string, string>> MatchDataList = new List<Dictionary<string,string>>();
+        private ObservableCollection<MatchData> MatchDataList { get; set; }
 
         /// <summary>
         /// Find some data about matches and fill the MatchDataList with it.
@@ -44,22 +46,22 @@ namespace PhoneApp1
             JArray matchArray = JArray.Parse(matchesInfo);
 
             // TODO actually should clear after checking the received JSON is valid.
-            MatchDataList.Clear();
-
+            if (MatchDataList != null)
+            { 
+             MatchDataList.Clear();
+            }
             // One dictionary for each match, includes the desired info.
             foreach (JObject jobj in matchArray)
-            {
-                Dictionary<string, string> dic  = new Dictionary<string, string>();
-
-                dic.Add("matchID", jobj["Id"].ToString());
-                dic.Add("matchDate", jobj["MatchDate"].ToString());
-                dic.Add("homeTeamName", jobj["HomeTeam"]["Name"].ToString());
-                dic.Add("awayTeamName", jobj["AwayTeam"]["Name"].ToString());
-                dic.Add("homeGoals", jobj["HomeGoals"].ToString());
-                dic.Add("awayGoals", jobj["AwayGoals"].ToString());
-                dic.Add("homeTeamLogoAddress", jobj["HomeTeam"]["LogoUrl"].ToString());
-                dic.Add("awayTeamLogoAddress", jobj["AwayTeam"]["LogoUrl"].ToString());
-                MatchDataList.Add(dic);
+            {           
+                MatchData match  = 
+                    new MatchData(jobj["HomeTeam"]["Name"].ToString(),
+                                               jobj["AwayTeam"]["Name"].ToString(), 
+                                               jobj["HomeTeam"]["LogoUrl"].ToString(),
+                                               jobj["AwayTeam"]["LogoUrl"].ToString(),
+                                               jobj["HomeGoals"].ToString(),
+                                               jobj["AwayGoals"].ToString(),
+                                               jobj["MatchDate"].ToString());
+                MatchDataList.Add(match);
             }
         }
 
@@ -112,22 +114,28 @@ namespace PhoneApp1
            SearchingBlock.Text = "Haetaan ottelutietoja..."; 
            populateMatchDataListFromHttp();
            SearchingBlock.Text = "";
-           updateMatchDataListUI();
+           // updateMatchDataListUI();
         }
 
+        /*
         private void updateMatchDataListUI()
         {
             foreach (Dictionary<string,string> match in MatchDataList)
             {
+            MatchListUI.
+
             TextBlock matchBlock = new TextBlock();
             matchBlock.Margin = new Thickness(0,5,0,0);
             matchBlock.Text = match["homeTeamName"] + " -- " + match["awayTeamName"] 
                 + " : " + match["homeGoals"] + " -- " + match["awayGoals"];
 
+            matchBlock.Tag
+
             MatchPanel.Children.Add(matchBlock);
             }
         }
-
+        */
+          
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
         //{

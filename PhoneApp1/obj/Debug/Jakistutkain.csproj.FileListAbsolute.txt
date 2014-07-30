@@ -36,3 +36,4 @@ C:\Users\Kari\Documents\Visual Studio 2013\Projects\App1\PhoneApp1\Bin\Debug\Sys
 C:\Users\Kari\Documents\Visual Studio 2013\Projects\App1\PhoneApp1\Bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\Kari\Documents\Visual Studio 2013\Projects\App1\PhoneApp1\Bin\Debug\System.Net.Http.Primitives.xml
 C:\Users\Kari\Documents\Visual Studio 2013\Projects\App1\PhoneApp1\Bin\Debug\Zlib.Portable.pdb
+C:\Users\Kari\Documents\Visual Studio 2013\Projects\App1\PhoneApp1\obj\Debug\MatchDetailsPage.g.cs

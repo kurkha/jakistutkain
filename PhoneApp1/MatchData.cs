@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace PhoneApp1
 {
+    /// <summary>
+    /// Class containing relevant data about a single match.
+    /// </summary>
     class MatchData
     {
-        public string HomeTeam { get; set; }
-        public string AwayTeam { get; set; }
+        public string HomeTeamName { get; set; }
+        public string AwayTeamName { get; set; }
 
         public string HomeTeamLogoAddress { get; set; }
 
@@ -21,8 +24,19 @@ namespace PhoneApp1
 
         public string MatchDate { get; set; }
 
-
-
+        public MatchData(string homeTeamName, string awayTeamName, string homeTeamLogoAddress,
+                        string awayTeamLogoAddress, string homeGoals, string awayGoals,
+                        string matchdate)
+        {
+            this.HomeTeamName = homeTeamName;
+            this.AwayTeamName = awayTeamName;
+            this.HomeTeamLogoAddress = homeTeamLogoAddress;
+            this.AwayTeamLogoAddress = awayTeamLogoAddress;
+            this.HomeGoals = homeGoals;
+            this.AwayGoals = awayGoals;
+            this.MatchDate = matchdate;
+        }
+    
     }
 
 }

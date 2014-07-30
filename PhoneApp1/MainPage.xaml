@@ -13,6 +13,24 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
+    <!-- Definions for resources -->
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="MatchListItemTemplate">
+          <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+            <TextBlock Text="{Binding MatchDate}"/>
+            <TextBlock Text=" " />
+            <TextBlock Text="{Binding HomeTeamName}" />
+            <TextBlock Text=" -- " />
+            <TextBlock Text="{Binding AwayTeamName}" />
+            <TextBlock Text=" : " />
+            <TextBlock Text="{Binding HomeGoals}" />
+            <TextBlock Text=" - " />
+            <TextBlock Text="{Binding AwayGoals}" />
+          </StackPanel>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+    
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -42,7 +60,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0">
-            	<Run Text="Jäkistutkain deluxe turbo"/>
+            	<Run Text="Jalistutkain deluxe turbo"/>
             	<LineBreak/>
             	<Run/>
             </TextBlock>
@@ -52,15 +70,23 @@
 
         <!--ContentPanel - place additional content here-->
         
-            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" HorizontalAlignment="Left">
-            <ScrollViewer Margin="0" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ScrollViewer x:Name="MatchPanelScrollViewer" Margin="0" VerticalAlignment="Top">
                 <StackPanel x:Name="MatchPanel" Margin="0">
                     <TextBlock x:Name="SearchingBlock" Margin="0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <phone:LongListSelector 
+                        x:Name="MatchListUI" 
+                        Margin="0" 
+                        VerticalAlignment="Top" 
+                        HorizontalContentAlignment="Left"
+                        ItemTemplate="{StaticResource MatchListItemTemplate}"
+                        />
                 </StackPanel>
 
             </ScrollViewer>
             </Grid>
         
+
 
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
