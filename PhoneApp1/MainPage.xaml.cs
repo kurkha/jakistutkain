@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using Windows.Storage;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -27,6 +25,7 @@ namespace PhoneApp1
             // List of match objects, all containing data for a single match.
             ObservableCollection <MatchData> MDataList = new ObservableCollection<MatchData>();
             this.MatchDataList = MDataList;
+            // A LongListSelector in the UI uses this as a binded source.
             MatchListUI.ItemsSource = MatchDataList;
 
         }
@@ -34,14 +33,27 @@ namespace PhoneApp1
         private ObservableCollection<MatchData> MatchDataList { get; set; }
 
         /// <summary>
-        /// Find some data about matches and fill the MatchDataList with it.
+        /// Find some data (in JSON array form) about matches, parse it, 
+        /// and fill the MatchDataList with relevant parts of it.
+        /// 
+        /// <return>true if populating was successfull, else false.</return>
         /// </summary>
-        public async void populateMatchDataListFromHttp()
+        public async Task<Boolean> populateMatchDataListFromHttp()
         {
             // Get the actual Json in text from the matchdata page.
             string matchDataAddress = "http://adafyvlstorage.blob.core.windows.net/2014/finland/veikkausliiga/matches";
-            string matchesInfo = await IOandConversion.readCompressedHtmlPageAsync(matchDataAddress);
-            
+
+            string matchesInfo;
+            try
+            { 
+            matchesInfo = await MatchDataFetcher.readCompressedHtmlPageAsync(matchDataAddress);
+            } 
+            catch(Exception e) // TODO use less generic exception here.
+            { 
+            StatusBlockUI.Text = "Verkkovirhe. Yritä piakkoin uudestaan.";
+            return false;
+            }
+
             // Matches are in an array by default.
             JArray matchArray = JArray.Parse(matchesInfo);
 
@@ -63,93 +75,41 @@ namespace PhoneApp1
                                                jobj["MatchDate"].ToString());
                 MatchDataList.Add(match);
             }
+            return true;
         }
 
         /// <summary>
-        /// Same as populateMatchDataListFromHttp(), except that the matchdata is
-        /// read from a file.
+        /// Updates the match data from the http resource and informs the user about the status of 
+        /// this task while doing so.
         /// </summary>
-        /*
-        public async void populateMatchDataListFromFile()
-        {
-
-
-            var fpath = (@"C:\Users\Kari\Documents\Visual Studio 2013\Projects\App1\PhoneApp1");
-
-            StorageFolder matchDataFolder = StorageFolder.GetFolderFromPathAsync(fpath);
-
-            var file = dir.OpenStreamForReadAsync(fpath);
-            var streamReader = new StreamReader(file);
-                
-            string fullMatchInfo = streamReader.ReadToEnd();
-                
-            // Matches are in an array by default.
-            JArray matchArray = new JArray(fullMatchInfo);
-
-            // TODO actually should clear after checking the received JSON is valid.
-            MatchDataList.Clear();
-
-            // One dictionary for each match, includes the desired info.
-            foreach (JObject jobj in matchArray)
-            {
-                Dictionary<string, string> dic = new Dictionary<string, string>();
-
-                dic.Add("matchID", jobj["Id"].ToString());
-                dic.Add("matchDate", jobj["MatchDate"].ToString());
-                dic.Add("homeTeamName", jobj["HomeTeam"]["Name"].ToString());
-                dic.Add("awayTeamName", jobj["AwayTeam"]["Name"].ToString());
-                dic.Add("homeGoals", jobj["HomeGoals"].ToString());
-                dic.Add("awayGoals", jobj["AwayGoals"].ToString());
-                dic.Add("homeTeamLogoAddress", jobj["HomeTeam"]["LogoUrl"].ToString());
-                dic.Add("awayTeamLogoAddress", jobj["AwayTeam"]["LogoUrl"].ToString());
-                MatchDataList.Add(dic);
-            }
-
-        }
-
-         */
- 
+        /// <param name="sender">Not used.</param>
+        /// <param name="e">Not used.</param>
         public async void buttonPaivita_Click(object sender, RoutedEventArgs e)
         {
-           SearchingBlock.Text = "Haetaan ottelutietoja..."; 
-           populateMatchDataListFromHttp();
-           SearchingBlock.Text = "";
-           // updateMatchDataListUI();
+           StatusBlockUI.Text = "Haetaan ottelutietoja..."; 
+           if (await populateMatchDataListFromHttp())
+           {
+               StatusBlockUI.Text = ""; 
+           }
         }
 
-        /*
-        private void updateMatchDataListUI()
+        /// <summary>
+        /// Shows detailed information about a match on the other page when the user clicks an appropriate list item.
+        /// A bit hackish solution, as the LongListSelector has no OnClick event.
+        /// </summary>
+        /// <param name="sender">Not used.</param>
+        /// <param name="e">Not used.</param>
+        private void MatchListUISelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (Dictionary<string,string> match in MatchDataList)
-            {
-            MatchListUI.
+            if (MatchListUI.SelectedItem == null) { return; }
 
-            TextBlock matchBlock = new TextBlock();
-            matchBlock.Margin = new Thickness(0,5,0,0);
-            matchBlock.Text = match["homeTeamName"] + " -- " + match["awayTeamName"] 
-                + " : " + match["homeGoals"] + " -- " + match["awayGoals"];
+            MatchData selectedMatchData = (MatchData) MatchListUI.SelectedItem;
 
-            matchBlock.Tag
+            // Uses a global application state dictionary to pass info to the other page.
+            PhoneApplicationService.Current.State["SelectedMatchData"] = selectedMatchData;
+            NavigationService.Navigate(new Uri("/MatchDetailsPage.xaml", UriKind.Relative));
 
-            MatchPanel.Children.Add(matchBlock);
-            }
+            MatchListUI.SelectedItem = null;
         }
-        */
-          
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
     }
 }

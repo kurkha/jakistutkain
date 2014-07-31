@@ -25,22 +25,28 @@
             <TextBlock Text="Jalistutkain deluxe turbo" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
             	<Run Text="Ottelun tiedot"/>
-            	<LineBreak/>
             	<Run/>
             </TextBlock>
+            <Button Name="ButtonReturnToMainPage" Content="Palaa ottelulistaan" Click="buttonReturnToMainPage_Click"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
           <StackPanel>
-              <TextBlock x:Name="MatchDateUI"/>
+              <TextBlock x:Name="MatchDateUI" Margin="0,0,0,10" HorizontalAlignment="Center" FontSize="30"/>
               <StackPanel Margin="0,0,0,0" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-              <Image x:Name="HomeTeamLogoUI" Width="100" Height="100" Margin="0,0,10,0" />
-              <TextBlock x:Name="HomeTeamNameUI" HorizontalAlignment="Left" FontSize="36"/>
-              <TextBlock Text="  --  " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
-              <Image x:Name="AwayTeamLogoUI" Width="100" Height="100" Margin="0,0,10,0" />
-              <TextBlock x:Name="AwayTeamNameUI" HorizontalAlignment="Left" FontSize="36"/>
-            </StackPanel>
+                <StackPanel x:Name="HomeTeamInfo">  
+                  <Image x:Name="HomeTeamLogoUI" Width="100" Height="100" Margin="0,0,10,0" HorizontalAlignment="Center" />
+                  <TextBlock x:Name="HomeTeamNameUI" HorizontalAlignment="Center" FontSize="36"/>
+                  <TextBlock x:Name="HomeTeamGoalsUI" FontSize="36" HorizontalAlignment="Center" />
+                </StackPanel>
+              <TextBlock Text="  --  " HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="46"/>
+                <StackPanel x:Name="AwayTeamInfo">
+                  <Image x:Name="AwayTeamLogoUI" Width="100" Height="100" Margin="0,0,10,0" HorizontalAlignment="Center" />
+                  <TextBlock x:Name="AwayTeamNameUI" HorizontalAlignment="Center" FontSize="36"/>
+                  <TextBlock x:Name="AwayTeamGoalsUI" FontSize="36" HorizontalAlignment="Center"/>
+                </StackPanel>
+              </StackPanel>
           </StackPanel>
         </Grid>
     </Grid>

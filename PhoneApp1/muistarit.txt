@@ -12,13 +12,3 @@
 			/ Tai ihan vaan yhden labelin per ottelu ja siihen OnClickin?
 			/ Ja OnClickillä sitten vaan muutetaan widgettien sisältöä sillä toisella sivulla
 			/ Kandee kyllä sitten penkoa samasta JSON-objektista se tieto, ja huomaa, että edelleen samalla match id:llä mennään
-
-
-- TODO
-	\ Oikeasti olis joku tapa määritellä tuo MatchDataList modeliksi ja sitten viewiksi sen sisällön
-	näyttäjä.
-	\ Tarkistus ja virheilmoitus, jos verkkosivua ei voi lukea
-	\ Jos otteluntarjoajasivulla on korruptoitunutta tietoa, pitäisi tehdä jotain 
-	(näyttää vain ei-korruptoinut? Heittää käyttäjälle virheilmoitus eikä näyttää
-	mitään?)
-	\ Kommentteja luokkiin ja medodeihin

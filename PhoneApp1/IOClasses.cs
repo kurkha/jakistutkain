@@ -10,14 +10,16 @@ using System.Data;
 
 namespace PhoneApp1
 {
-    public static class IOandConversion
+    /// <summary>
+    /// Static class for fetching match data.
+    /// </summary>
+    public static class MatchDataFetcher
     {
-
         /// <summary>
         /// Read zipped html page and return its content as string.
         /// </summary>
         /// <param name="pageAdress">The address of the zipped page.</param>
-        /// <returns></returns>
+        /// <returns>Content of the page as a string.</returns>
         public static async Task<string> readCompressedHtmlPageAsync(string pageAdress)
         {
             CompressedHttpClientHandler handler = new CompressedHttpClientHandler();
